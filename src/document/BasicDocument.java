@@ -48,16 +48,16 @@ public class BasicDocument extends Document
 	 * 
 	 * Check the examples in the main method below for more information.  
 	 * 
-	 * This method should process the entire text string each time it is called.  
+	 * This method processes the entire text string each time it is called.  
 	 * 
 	 * @return The number of sentences in the document.
 	 */
 	@Override
 	public int getNumSentences()
 	{
-	    //TODO: Implement this method.  See the Module 2 support videos 
-        // if you need help.
-        return 0;
+		List<String> sentences = getTokens("[^.!?]+");
+		int numSentences = sentences.size();
+        return numSentences;
 	}
 	
 	/**
