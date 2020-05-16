@@ -3,7 +3,8 @@ package document;
 import java.util.List;
 
 /** 
- * A naive implementation of the Document abstract class. 
+ * A naive implementation of the Document abstract class.
+ * @author Hamadi McIntosh 
  * @author UC San Diego Intermediate Programming MOOC team
  */
 public class BasicDocument extends Document 
@@ -27,16 +28,16 @@ public class BasicDocument extends Document
 	 * 
 	 * Check the examples in the main method below for more information.
 	 * 
-	 * This method should process the entire text string each time it is called.  
+	 * This method processes the entire text string each time it is called.  
 	 * 
 	 * @return The number of words in the document.
 	 */
 	@Override
 	public int getNumWords()
 	{
-		//TODO: Implement this method in week 2 according to the comments above.  
-		// See the Module 2 support videos if you need help.
-	    return 0;
+		List<String> words = getTokens("[a-zA-Z]+");
+		int numWords = words.size();
+	    return numWords;
 	}
 	
 	/**
