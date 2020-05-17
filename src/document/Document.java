@@ -132,7 +132,7 @@ public abstract class Document {
 					+ ", expected " + sentences);
 			passed = false;
 		}
-		if (fleschScoreFound != fleschScore) {
+		if (fleschScoreFound >= (fleschScore - 0.0001) && (fleschScoreFound <= (fleschScore + 0.0001))) {
 			System.out.println("\nIncorrect Flesch Score.  Found " + fleschScoreFound
 					+ ", expected " + fleschScore);
 			passed = false;
