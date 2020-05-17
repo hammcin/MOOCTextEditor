@@ -108,7 +108,7 @@ public abstract class Document {
 	 * @param sentences The expected number of sentences
 	 * @return true if the test case passed.  False otherwise.
 	 */
-	public static boolean testCase(Document doc, int syllables, int words, int sentences)
+	public static boolean testCase(Document doc, int syllables, int words, int sentences, double fleschScore)
 	{
 		System.out.println("Testing text: ");
 		System.out.print(doc.getText() + "\n....");
@@ -116,6 +116,7 @@ public abstract class Document {
 		int syllFound = doc.getNumSyllables();
 		int wordsFound = doc.getNumWords();
 		int sentFound = doc.getNumSentences();
+		double fleschScoreFound = doc.getFleschScore();
 		if (syllFound != syllables) {
 			System.out.println("\nIncorrect number of syllables.  Found " + syllFound 
 					+ ", expected " + syllables);
@@ -129,6 +130,11 @@ public abstract class Document {
 		if (sentFound != sentences) {
 			System.out.println("\nIncorrect number of sentences.  Found " + sentFound 
 					+ ", expected " + sentences);
+			passed = false;
+		}
+		if (fleschScoreFound != fleschScore) {
+			System.out.println("\nIncorrect Flesch Score.  Found " + fleschScoreFound
+					+ ", expected " + fleschScore);
 			passed = false;
 		}
 		
