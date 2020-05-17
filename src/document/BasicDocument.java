@@ -66,23 +66,23 @@ public class BasicDocument extends Document
 	 *       Each contiguous sequence of one or more vowels is a syllable, 
 	 *       with the following exception: a lone "e" at the end of a word 
 	 *       is not considered a syllable unless the word has no other syllables. 
-	 *       You should consider y a vowel.
+	 *       Y is considered to be a vowel.
 	 *       
 	 * Check the examples in the main method below for more information.  
 	 * 
-	 * This method should process the entire text string each time it is called.  
+	 * This method processes the entire text string each time it is called.  
 	 * 
 	 * @return The number of syllables in the document.
 	 */
 	@Override
 	public int getNumSyllables()
 	{
-	    //TODO: Implement this method in week 2.  See the Module 2 support videos 
-        // if you need help.  And note that there is no need to use a regular
-		// expression for the syllable counting.  We recommend you implement 
-		// the helper function countSyllables in Document.java using a loop, 
-		// and then call it here on each word.
-        return 0;
+		int numSyllables = 0;
+		List<String> words = getTokens("[a-zA-Z]+");
+		for (String word : words) {
+			numSyllables += countSyllables(word);
+		}
+        return numSyllables;
 	}
 	
 	
