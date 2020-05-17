@@ -2,6 +2,7 @@ package document;
 
 /** 
  * A class that represents a text document
+ * @author Hamadi McIntosh
  * @author UC San Diego Intermediate Programming MOOC team
  */
 import java.util.ArrayList;
@@ -132,7 +133,7 @@ public abstract class Document {
 					+ ", expected " + sentences);
 			passed = false;
 		}
-		if (fleschScoreFound >= (fleschScore - 0.0001) && (fleschScoreFound <= (fleschScore + 0.0001))) {
+		if ((fleschScoreFound < (fleschScore - 0.0001)) && ((fleschScoreFound > (fleschScore + 0.0001)))) {
 			System.out.println("\nIncorrect Flesch Score.  Found " + fleschScoreFound
 					+ ", expected " + fleschScore);
 			passed = false;
@@ -166,9 +167,19 @@ public abstract class Document {
 	/** return the Flesch readability score of this document */
 	public double getFleschScore()
 	{
-	    // TODO: You will play with this method in week 1, and 
-		// then implement it in week 2
-	    return text.length();
+		double fleschScore = 100.0;
+		if (getNumSentences()>0 && getNumWords()>0) {
+			fleschScore = 206.835
+					- 1.015*(((double) getNumWords())/((double) getNumSentences()))
+					- 84.6*(((double) getNumSyllables())/((double) getNumWords()));
+			if (fleschScore > 100.0) {
+				fleschScore = 100.0;
+			}
+			if (fleschScore < 0.0) {
+				fleschScore = 0.0;
+			}
+		}
+	    return fleschScore;
 	}
 	
 	
