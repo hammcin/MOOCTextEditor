@@ -168,10 +168,12 @@ public abstract class Document {
 	public double getFleschScore()
 	{
 		double fleschScore = 100.0;
-		if (getNumSentences()>0 && getNumWords()>0) {
+		int numSentences = getNumSentences();
+		int numWords = getNumWords();
+		if (numSentences>0 || numWords>0) {
 			fleschScore = 206.835
-					- 1.015*(((double) getNumWords())/((double) getNumSentences()))
-					- 84.6*(((double) getNumSyllables())/((double) getNumWords()));
+					- 1.015*(((double) numWords)/((double) numSentences))
+					- 84.6*(((double) getNumSyllables())/((double) numWords));
 			if (fleschScore > 100.0) {
 				fleschScore = 100.0;
 			}
