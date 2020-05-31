@@ -86,20 +86,19 @@ public class BasicDocument extends Document
 	}
 	
 	
-	/* The main method for testing this class. 
-	 * You are encouraged to add your own tests.  */
+	/* The main method for testing this class.  */
 	public static void main(String[] args)
 	{
 		/* Each of the test cases below uses the method testCase.  The first 
 		 * argument to testCase is a Document object, created with the string shown.
-		 * The next three arguments are the number of syllables, words and sentences 
-		 * in the string, respectively.  You can use these examples to help clarify 
-		 * your understanding of how to count syllables, words, and sentences.
+		 * The next three arguments are the number of syllables, words and sentences
+		 * in the string, respectively.  The final argument is the Flesch score for
+		 * the string.
 		 */
 		int numSyllables = 16;
 		int numWords = 13;
 		int numSentences = 5;
-		double fleschScore = 100.0;
+		double fleschScore = 100.072;
 		testCase(new BasicDocument("This is a test.  How many???  "
 		        + "Senteeeeeeeeeences are here... there should be 5!  Right?"),
 				numSyllables, numWords, numSentences, fleschScore);
@@ -113,7 +112,7 @@ public class BasicDocument extends Document
 		numSyllables = 15;
 		numWords = 11;
 		numSentences = 4;
-		fleschScore = 88.68;
+		fleschScore = 88.680;
 		testCase(new BasicDocument("sentence, with, lots, of, commas.!  "
 		        + "(And some poaren)).  The output is: 7.5."), numSyllables, numWords, numSentences, fleschScore);
 		
@@ -136,25 +135,25 @@ public class BasicDocument extends Document
 		numSyllables = 2;
 		numWords = 1;
 		numSentences = 1;
-		fleschScore = 36.62;
+		fleschScore = 36.620;
 		testCase(new BasicDocument("Segue"), numSyllables, numWords, numSentences, fleschScore);
 		
 		numSyllables = 2;
 		numWords = 1;
 		numSentences = 1;
-		fleschScore = 36.62;
+		fleschScore = 36.620;
 		testCase(new BasicDocument("Sentence"), numSyllables, numWords, numSentences, fleschScore);
 		
 		numSyllables = 3;
 		numWords = 1;
 		numSentences = 1;
-		fleschScore = 0.0;
+		fleschScore = -47.979;
 		testCase(new BasicDocument("Sentences?!"), numSyllables, numWords, numSentences, fleschScore);
 		
 		numSyllables = 32;
 		numWords = 15;
 		numSentences = 1;
-		fleschScore = 11.13;
+		fleschScore = 11.130;
 		testCase(new BasicDocument("Lorem ipsum dolor sit amet, qui ex choro quodsi moderatius, nam dolores explicari forensibus ad."),
 				numSyllables, numWords, numSentences, fleschScore);
 	}

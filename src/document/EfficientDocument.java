@@ -7,6 +7,7 @@ import java.util.List;
  * It does one pass through the document to count the number of syllables, words, 
  * and sentences and then stores those values.
  * 
+ * @author Hamadi McIntosh
  * @author UC San Diego Intermediate Programming MOOC team
  */
 public class EfficientDocument extends Document {
@@ -120,27 +121,69 @@ public class EfficientDocument extends Document {
 	}
 	
 	// Can be used for testing
-	// We encourage you to add your own tests here.
 	public static void main(String[] args)
 	{
-		/*
-	    testCase(new EfficientDocument("This is a test.  How many???  "
-                + "Senteeeeeeeeeences are here... there should be 5!  Right?"),
-                16, 13, 5);
-        testCase(new EfficientDocument(""), 0, 0, 0);
-        testCase(new EfficientDocument("sentence, with, lots, of, commas.!  "
-                + "(And some poaren)).  The output is: 7.5."), 15, 11, 4);
-        testCase(new EfficientDocument("many???  Senteeeeeeeeeences are"), 6, 3, 2); 
-        testCase(new EfficientDocument("Here is a series of test sentences. Your program should "
+		int numSyllables = 16;
+		int numWords = 13;
+		int numSentences = 5;
+		double fleschScore = 100.072;
+		testCase(new BasicDocument("This is a test.  How many???  "
+		        + "Senteeeeeeeeeences are here... there should be 5!  Right?"),
+				numSyllables, numWords, numSentences, fleschScore);
+		
+		numSyllables = 0;
+		numWords = 0;
+		numSentences = 0;
+		fleschScore = 100.0;
+		testCase(new BasicDocument(""), numSyllables, numWords, numSentences, fleschScore);
+		
+		numSyllables = 15;
+		numWords = 11;
+		numSentences = 4;
+		fleschScore = 88.680;
+		testCase(new BasicDocument("sentence, with, lots, of, commas.!  "
+		        + "(And some poaren)).  The output is: 7.5."), numSyllables, numWords, numSentences, fleschScore);
+		
+		numSyllables = 6;
+		numWords = 3;
+		numSentences = 2;
+		fleschScore = 36.112;
+		testCase(new BasicDocument("many???  Senteeeeeeeeeences are"),
+				numSyllables, numWords, numSentences, fleschScore);
+		
+		numSyllables = 49;
+		numWords = 33;
+		numSentences = 3;
+		fleschScore = 70.051;
+		testCase(new BasicDocument("Here is a series of test sentences. Your program should "
 				+ "find 3 sentences, 33 words, and 49 syllables. Not every word will have "
 				+ "the correct amount of syllables (example, for example), "
-				+ "but most of them will."), 49, 33, 3);
-		testCase(new EfficientDocument("Segue"), 2, 1, 1);
-		testCase(new EfficientDocument("Sentence"), 2, 1, 1);
-		testCase(new EfficientDocument("Sentences?!"), 3, 1, 1);
-		testCase(new EfficientDocument("Lorem ipsum dolor sit amet, qui ex choro quodsi moderatius, nam dolores explicari forensibus ad."),
-		         32, 15, 1);
-		*/
+				+ "but most of them will."), numSyllables, numWords, numSentences, fleschScore);
+		
+		numSyllables = 2;
+		numWords = 1;
+		numSentences = 1;
+		fleschScore = 36.620;
+		testCase(new BasicDocument("Segue"), numSyllables, numWords, numSentences, fleschScore);
+		
+		numSyllables = 2;
+		numWords = 1;
+		numSentences = 1;
+		fleschScore = 36.620;
+		testCase(new BasicDocument("Sentence"), numSyllables, numWords, numSentences, fleschScore);
+		
+		numSyllables = 3;
+		numWords = 1;
+		numSentences = 1;
+		fleschScore = -47.979;
+		testCase(new BasicDocument("Sentences?!"), numSyllables, numWords, numSentences, fleschScore);
+		
+		numSyllables = 32;
+		numWords = 15;
+		numSentences = 1;
+		fleschScore = 11.130;
+		testCase(new BasicDocument("Lorem ipsum dolor sit amet, qui ex choro quodsi moderatius, nam dolores explicari forensibus ad."),
+				numSyllables, numWords, numSentences, fleschScore);
 		
 	}
 	

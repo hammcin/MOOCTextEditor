@@ -82,8 +82,8 @@ public abstract class Document {
 				if (i<(wordLower.length()-1)) {
 					if (isVowelCurr && !isVowelPrev) {
 						numSyllables += 1;
-						}
 					}
+				}
 				else {
 					if ((currLetter == 'e') && !isVowelPrev) {
 						if (numSyllables == 0) {
@@ -107,6 +107,7 @@ public abstract class Document {
 	 * @param syllables The expected number of syllables
 	 * @param words The expected number of words
 	 * @param sentences The expected number of sentences
+	 * @param fleschScore The expected Flesch score
 	 * @return true if the test case passed.  False otherwise.
 	 */
 	public static boolean testCase(Document doc, int syllables, int words, int sentences, double fleschScore)
@@ -133,7 +134,7 @@ public abstract class Document {
 					+ ", expected " + sentences);
 			passed = false;
 		}
-		if ((fleschScoreFound < (fleschScore - 0.0001)) && ((fleschScoreFound > (fleschScore + 0.0001)))) {
+		if ((fleschScoreFound < (fleschScore - 0.001)) || ((fleschScoreFound > (fleschScore + 0.001)))) {
 			System.out.println("\nIncorrect Flesch Score.  Found " + fleschScoreFound
 					+ ", expected " + fleschScore);
 			passed = false;
@@ -170,16 +171,10 @@ public abstract class Document {
 		double fleschScore = 100.0;
 		int numSentences = getNumSentences();
 		int numWords = getNumWords();
-		if (numSentences>0 || numWords>0) {
+		if (numSentences>0 && numWords>0) {
 			fleschScore = 206.835
 					- 1.015*(((double) numWords)/((double) numSentences))
 					- 84.6*(((double) getNumSyllables())/((double) numWords));
-			if (fleschScore > 100.0) {
-				fleschScore = 100.0;
-			}
-			if (fleschScore < 0.0) {
-				fleschScore = 0.0;
-			}
 		}
 	    return fleschScore;
 	}
