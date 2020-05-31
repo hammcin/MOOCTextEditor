@@ -34,8 +34,6 @@ public class EfficientDocument extends Document {
 	 */
 	private boolean isWord(String tok)
 	{
-	    // Note: This is a fast way of checking whether a string is a word
-	    // You probably don't want to change it.
 		return !(tok.indexOf("!") >=0 || tok.indexOf(".") >=0 || tok.indexOf("?")>=0);
 	}
 	
@@ -48,13 +46,25 @@ public class EfficientDocument extends Document {
 	{
 		// Call getTokens on the text to preserve separate strings that are 
 		// either words or sentence-ending punctuation.  Ignore everything
-		// That is not a word or a sentence-ending puctuation.
-		// MAKE SURE YOU UNDERSTAND THIS LINE BEFORE YOU CODE THE REST
-		// OF THIS METHOD.
+		// that is not a word or a sentence-ending punctuation.
 		List<String> tokens = getTokens("[!?.]+|[a-zA-Z]+");
-		
-		// TODO: Finish this method.  Remember the countSyllables method from 
-		// Document.  That will come in handy here.  isWord defined above will also help.
+		numWords = 0;
+		numSentences = 0;
+		numSyllables = 0;
+		for (String tok : tokens) {
+			if (isWord(tok)) {
+				numWords++;
+				numSyllables += countSyllables(tok);
+			}
+			else {
+				numSentences++;
+			}
+		}
+		if (tokens.size()>0) {
+			if (isWord(tokens.get(tokens.size()-1))) {
+				numSentences++;
+			}
+		}
 	}
 
 	
@@ -73,8 +83,7 @@ public class EfficientDocument extends Document {
 	 */
 	@Override
 	public int getNumSentences() {
-		//TODO: write this method.  Hint: It's simple
-		return 0;
+		return numSentences;
 	}
 
 	
@@ -94,8 +103,7 @@ public class EfficientDocument extends Document {
 	 */
 	@Override
 	public int getNumWords() {
-		//TODO: write this method.  Hint: It's simple
-	    return 0;
+		return numWords;
 	}
 
 
@@ -116,8 +124,7 @@ public class EfficientDocument extends Document {
 	 */
 	@Override
 	public int getNumSyllables() {
-        //TODO: write this method.  Hint: It's simple
-        return 0;
+		return numSyllables;
 	}
 	
 	// Can be used for testing
