@@ -119,7 +119,46 @@ public class MyLinkedListTester {
 	@Test
 	public void testAddEnd()
 	{
-        // TODO: implement this test
+		//test short list, add should throw an exception
+		try {
+			shortList.add(null);
+			fail("Check null pointer");
+		}
+		catch (NullPointerException e) {
+
+		}
+
+		emptyList.add(0);
+		emptyList.add(1);
+		emptyList.add(2);
+		// test empty list, first contents, then size
+		assertEquals("Check first", (Integer)0, emptyList.get(0));
+		assertEquals("Check second", (Integer)1, emptyList.get(1));
+		assertEquals("Check third", (Integer)2, emptyList.get(2));
+
+		assertEquals("Check size", 3, emptyList.size);
+
+		shortList.add("C");
+		shortList.add("D");
+		shortList.add("E");
+		// test short list, first contents, then size
+		assertEquals("Check first", "A", shortList.get(0));
+		assertEquals("Check second", "B", shortList.get(1));
+		assertEquals("Check third", "C", shortList.get(2));
+		assertEquals("Check fourth", "D", shortList.get(3));
+		assertEquals("Check fifth", "E", shortList.get(4));
+
+		assertEquals("Check size", 5, shortList.size);
+
+		for (int i = LONG_LIST_LENGTH; i < (LONG_LIST_LENGTH+3); i++)
+		{
+			longerList.add(i);
+		}
+		for(int i = 0; i<(LONG_LIST_LENGTH+3); i++ ) {
+			assertEquals("Check "+i+ " element", (Integer)i, longerList.get(i));
+		}
+
+		assertEquals("Check size", (LONG_LIST_LENGTH+3), longerList.size);
 		
 	}
 
@@ -140,7 +179,66 @@ public class MyLinkedListTester {
 	@Test
 	public void testAddAtIndex()
 	{
-        // TODO: implement this test
+		//test short list, add should throw an exception
+		try {
+			shortList.add(0,null);
+			fail("Check null pointer");
+		}
+		catch (NullPointerException e) {
+
+		}
+
+		try {
+			shortList.add(-1,"C");
+			fail("Check out of bounds.");
+		}
+		catch (IndexOutOfBoundsException e) {
+
+		}
+
+		try {
+			shortList.add(3,"C");
+			fail("Check out of bounds.");
+		}
+		catch (IndexOutOfBoundsException e) {
+
+		}
+
+		shortList.add(2,"C");
+		assertEquals("Check first", "A", shortList.get(0));
+		assertEquals("Check second", "B", shortList.get(1));
+		assertEquals("Check third", "C", shortList.get(2));
+
+		assertEquals("Check size", 3, shortList.size);
+
+		shortList.add(0, "D");
+		assertEquals("Check first", "D", shortList.get(0));
+		assertEquals("Check first", "A", shortList.get(1));
+		assertEquals("Check second", "B", shortList.get(2));
+		assertEquals("Check third", "C", shortList.get(3));
+
+		assertEquals("Check size", 4, shortList.size);
+
+		shortList.add(2, "E");
+		assertEquals("Check first", "D", shortList.get(0));
+		assertEquals("Check first", "A", shortList.get(1));
+		assertEquals("Check second", "E", shortList.get(2));
+		assertEquals("Check second", "B", shortList.get(3));
+		assertEquals("Check third", "C", shortList.get(4));
+
+		assertEquals("Check size", 5, shortList.size);
+
+		emptyList.add(0,0);
+		emptyList.add(0,1);
+		emptyList.add(2,2);
+		emptyList.add(1,3);
+		// test empty list, first contents, then size
+		assertEquals("Check first", (Integer)1, emptyList.get(0));
+		assertEquals("Check second", (Integer)3, emptyList.get(1));
+		assertEquals("Check third", (Integer)0, emptyList.get(2));
+		assertEquals("Check third", (Integer)2, emptyList.get(3));
+
+		assertEquals("Check size", 4, emptyList.size);
 		
 	}
 	
