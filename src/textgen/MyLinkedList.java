@@ -35,10 +35,36 @@ public class MyLinkedList<E> extends AbstractList<E> {
 
 	/** Get the element at position index 
 	 * @throws IndexOutOfBoundsException if the index is out of bounds. */
-	public E get(int index) 
+	public E get(int index) throws IndexOutOfBoundsException
 	{
-		// TODO: Implement this method.
-		return null;
+		if ((index>(this.size-1)) || (index<0)) {
+			throw new IndexOutOfBoundsException("Linked list indexing begins at 0 " +
+					"and linked list has size " + this.size + ".");
+		}
+		LLNode<E> curr = getNode(index);
+		return curr.data;
+	}
+	
+	private LLNode<E> getNode(int index) throws IndexOutOfBoundsException
+	{
+		if ((index>(this.size-1)) || (index<0)) {
+			throw new IndexOutOfBoundsException("Linked list indexing begins at 0 " +
+					"and linked list has size " + this.size + ".");
+		}
+		LLNode<E> curr;
+		if (index < (this.size-index-1)) {
+			curr = this.head.next;
+			for (int i=0;i<index;i++) {
+				curr = curr.next;
+			}
+		}
+		else {
+			curr = this.tail.prev;
+			for (int i=(this.size-1);i>index;i--) {
+				curr = curr.prev;
+			}
+		}
+		return curr;
 	}
 
 	/**
