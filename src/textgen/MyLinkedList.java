@@ -4,7 +4,7 @@ import java.util.AbstractList;
 
 
 /** A class that implements a doubly linked list
- * 
+ * @author Hamadi McIntosh
  * @author UC San Diego Intermediate Programming MOOC team
  *
  * @param <E> The type of the elements stored in the list
@@ -16,7 +16,11 @@ public class MyLinkedList<E> extends AbstractList<E> {
 
 	/** Create a new empty LinkedList */
 	public MyLinkedList() {
-		// TODO: Implement this method
+		this.head = new LLNode<E>();
+		this.tail = new LLNode<E>();
+		this.head.next = tail;
+		this.tail.prev = head;
+		this.size = 0;
 	}
 
 	/**
@@ -87,14 +91,21 @@ class LLNode<E>
 	LLNode<E> next;
 	E data;
 
-	// TODO: Add any other methods you think are useful here
-	// E.g. you might want to add another constructor
+	public LLNode() {
+		this.data = null;
+		this.prev = null;
+		this.next = null;
+	}
 
 	public LLNode(E e) 
 	{
 		this.data = e;
 		this.prev = null;
 		this.next = null;
+	}
+	
+	public String toString() {
+		return "" + this.data;
 	}
 
 }
