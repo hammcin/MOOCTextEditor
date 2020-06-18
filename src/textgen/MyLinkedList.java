@@ -27,10 +27,18 @@ public class MyLinkedList<E> extends AbstractList<E> {
 	 * Appends an element to the end of the list
 	 * @param element The element to add
 	 */
-	public boolean add(E element ) 
+	public boolean add(E element ) throws NullPointerException
 	{
-		// TODO: Implement this method
-		return false;
+		if (element==null) {
+			throw new NullPointerException("Linked list cannot store null pointers.");
+		}
+		LLNode<E> addNode = new LLNode<E>(element);
+		addNode.next = this.tail;
+		addNode.prev = this.tail.prev;
+		addNode.next.prev = addNode;
+		addNode.prev.next = addNode;
+		this.size++;
+		return true;
 	}
 
 	/** Get the element at position index 
