@@ -116,10 +116,19 @@ public class MyLinkedList<E> extends AbstractList<E> {
 	 * @throws IndexOutOfBoundsException If index is outside the bounds of the list
 	 * 
 	 */
-	public E remove(int index) 
+	public E remove(int index) throws IndexOutOfBoundsException
 	{
-		// TODO: Implement this method
-		return null;
+		if ((index<0) || (index>=this.size)) {
+			throw new IndexOutOfBoundsException("Linked list indexing begins at 0 " +
+					"and linked list has size " + this.size + ".");
+		}
+		LLNode<E> extractNode = getNode(index);
+		extractNode.prev.next = extractNode.next;
+		extractNode.next.prev = extractNode.prev;
+		extractNode.next = null;
+		extractNode.prev = null;
+		this.size--;
+		return extractNode.data;
 	}
 
 	/**
