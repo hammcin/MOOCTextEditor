@@ -153,6 +153,16 @@ public class MyLinkedList<E> extends AbstractList<E> {
 		replaceNode.data = element;
 		return removeElement;
 	}   
+	
+	public String toString() {
+		LLNode<E> curr = this.head.next;
+		String listString = "Node 0: " + curr.data;
+		for (int i=1;i<this.size;i++) {
+			curr = curr.next;
+			listString += "\nNode " + i + ": " + curr.data;
+		}
+		return listString;
+	}
 }
 
 class LLNode<E> 
