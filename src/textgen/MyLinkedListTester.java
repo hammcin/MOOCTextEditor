@@ -167,7 +167,9 @@ public class MyLinkedListTester {
 	@Test
 	public void testSize()
 	{
-		// TODO: implement this test
+		assertEquals("Check size", 0, emptyList.size);
+		assertEquals("Check size", 2, shortList.size);
+		assertEquals("Check size", LONG_LIST_LENGTH, longerList.size);
 	}
 
 	
