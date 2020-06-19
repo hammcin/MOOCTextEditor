@@ -32,12 +32,7 @@ public class MyLinkedList<E> extends AbstractList<E> {
 		if (element==null) {
 			throw new NullPointerException("Linked list cannot store null pointers.");
 		}
-		LLNode<E> addNode = new LLNode<E>(element);
-		addNode.next = this.tail;
-		addNode.prev = this.tail.prev;
-		addNode.next.prev = addNode;
-		addNode.prev.next = addNode;
-		this.size++;
+		add(this.size, element);
 		return true;
 	}
 
@@ -80,9 +75,32 @@ public class MyLinkedList<E> extends AbstractList<E> {
 	 * @param The index where the element should be added
 	 * @param element The element to add
 	 */
-	public void add(int index, E element ) 
+	public void add(int index, E element )
+			throws IndexOutOfBoundsException,NullPointerException
 	{
-		// TODO: Implement this method
+		if (element==null) {
+			throw new NullPointerException("Linked list cannot store null pointers.");
+		}
+		
+		LLNode<E> addNode = new LLNode<E>(element);
+		if ((index<0) || (index>this.size)) {
+			throw new IndexOutOfBoundsException("Linked list indexing starts at 0 " +
+					"and linked list has size " + this.size + ".");
+		}
+		else if (index==this.size) {
+			addNode.next = this.tail;
+			addNode.prev = this.tail.prev;
+			addNode.next.prev = addNode;
+			addNode.prev.next = addNode;
+		}
+		else {
+			LLNode<E> curr = getNode(index);
+			addNode.next = curr;
+			addNode.prev = curr.prev;
+			addNode.next.prev = addNode;
+			addNode.prev.next = addNode;
+		}
+		this.size++;
 	}
 
 
