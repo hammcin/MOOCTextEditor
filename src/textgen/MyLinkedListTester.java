@@ -282,11 +282,64 @@ public class MyLinkedListTester {
 	@Test
 	public void testSet()
 	{
-	    // TODO: implement this test
+		int a;
+		String b;
+	    try {
+	    	b = shortList.set(0, null);
+	    	fail("Check null pointer");
+	    }
+	    catch (NullPointerException e) {
+
+	    }
+
+	    try {
+	    	b = shortList.set(-1, "C");
+	    	fail("Check out of bounds.");
+	    }
+	    catch (IndexOutOfBoundsException e) {
+
+	    }
+
+	    try {
+	    	b = shortList.set(2, "C");
+	    	fail("Check out of bounds.");
+	    }
+	    catch (IndexOutOfBoundsException e) {
+
+	    }
+
+	    try {
+	    	a = emptyList.set(0, 0);
+	    	fail("Check out of bounds.");
+	    }
+	    catch (IndexOutOfBoundsException e) {
+
+	    }
+
+	    b = shortList.set(0, "C");
+	    assertEquals("Set: check b is correct ", "A", b);
+	    assertEquals("Set: check element 0 is correct", "C", shortList.get(0));
+
+	    b = shortList.set(1, "D");
+	    assertEquals("Set: check b is correct ", "B", b);
+	    assertEquals("Set: check element 1 is correct", "D", shortList.get(1));
+
+	    a = longerList.set(0, 10);
+	    assertEquals("Set: check a is correct ", 0, a);
+	    assertEquals("Set: check element 0 is correct", (Integer)10, longerList.get(0));
+
+	    a = longerList.set((LONG_LIST_LENGTH-1), 11);
+	    assertEquals("Set: check a is correct ", 9, a);
+	    assertEquals("Set: check element 9 is correct", (Integer)11,
+	    		longerList.get(LONG_LIST_LENGTH-1));
+
+	    a = longerList.set(6, 12);
+	    assertEquals("Set: check a is correct ", 6, a);
+	    assertEquals("Set: check element 6 is correct", (Integer)12, longerList.get(6));
 	    
 	}
 	
 	
-	// TODO: Optionally add more test methods.
+	
 	
 }
