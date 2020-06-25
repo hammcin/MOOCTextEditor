@@ -26,7 +26,7 @@ public class MarkovTextGeneratorLoL implements MarkovTextGenerator {
 	
 	public MarkovTextGeneratorLoL(Random generator)
 	{
-		wordList = new MyLinkedList<ListNode>();
+		wordList = new LinkedList<ListNode>();
 		starter = "";
 		rnGenerator = generator;
 	}
@@ -37,6 +37,9 @@ public class MarkovTextGeneratorLoL implements MarkovTextGenerator {
 	public void train(String sourceText)
 	{
 		List<String> words = getTokens("[a-zA-Z']+[!?.,]*",sourceText);
+		if (words.isEmpty()) {
+			return;
+		}
 		starter = words.get(0);
 		words.remove(0);
 		String prevWord = starter;
@@ -85,8 +88,10 @@ public class MarkovTextGeneratorLoL implements MarkovTextGenerator {
 		String currWord = starter;
 		String output = "";
 		int wordCounter = 0;
-		output += currWord;
-		wordCounter++;
+		if (numWords > 0) {
+			output += currWord;
+			wordCounter++;
+		}
 		String w;
 		while (wordCounter < numWords) {
 			for (ListNode node : wordList) {
@@ -195,7 +200,7 @@ class ListNode
 	ListNode(String word)
 	{
 		this.word = word;
-		nextWords = new MyLinkedList<String>();
+		nextWords = new LinkedList<String>();
 	}
 	
 	public String getWord()
