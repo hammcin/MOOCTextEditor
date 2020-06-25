@@ -119,7 +119,9 @@ public class MarkovTextGeneratorLoL implements MarkovTextGenerator {
 	@Override
 	public void retrain(String sourceText)
 	{
-		// TODO: Implement this method.
+		wordList.clear();
+		starter = "";
+		train(sourceText);
 	}
 	
 	// Private helper methods
