@@ -1,12 +1,16 @@
 package textgen;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Random;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /** 
  * An implementation of the MTG interface that uses a list of lists.
+ * @author Hamadi McIntosh
  * @author UC San Diego Intermediate Programming MOOC team 
  */
 public class MarkovTextGeneratorLoL implements MarkovTextGenerator {
@@ -22,7 +26,7 @@ public class MarkovTextGeneratorLoL implements MarkovTextGenerator {
 	
 	public MarkovTextGeneratorLoL(Random generator)
 	{
-		wordList = new LinkedList<ListNode>();
+		wordList = new MyLinkedList<ListNode>();
 		starter = "";
 		rnGenerator = generator;
 	}
@@ -32,7 +36,42 @@ public class MarkovTextGeneratorLoL implements MarkovTextGenerator {
 	@Override
 	public void train(String sourceText)
 	{
-		// TODO: Implement this method
+		List<String> words = getTokens("[a-zA-Z']+[!?.,]*",sourceText);
+		starter = words.get(0);
+		words.remove(0);
+		String prevWord = starter;
+		boolean isPresent = false;
+		ListNode lastWordNode = null;
+		for (String w : words) {
+			for (ListNode wordNode : wordList) {
+				if (prevWord.equals(wordNode.getWord())) {
+					wordNode.addNextWord(w);
+					isPresent = true;
+					if (prevWord.equals(words.get(words.size()-1))) {
+						lastWordNode = wordNode;
+					}
+					break;
+				}
+			}
+			if (!isPresent) {
+				ListNode addNode = new ListNode(prevWord);
+				addNode.addNextWord(w);
+				wordList.add(addNode);
+				if (prevWord.equals(words.get(words.size()-1))) {
+					lastWordNode = addNode;
+				}
+			}
+			isPresent = false;
+			prevWord = w;
+		}
+		if (lastWordNode == null) {
+			lastWordNode = new ListNode(words.get(words.size()-1));
+			lastWordNode.addNextWord(starter);
+			wordList.add(lastWordNode);
+		}
+		else {
+			lastWordNode.addNextWord(starter);
+		}
 	}
 	
 	/** 
@@ -64,12 +103,22 @@ public class MarkovTextGeneratorLoL implements MarkovTextGenerator {
 		// TODO: Implement this method.
 	}
 	
-	// TODO: Add any private helper methods you need here.
-	
+	// Private helper methods
+	private List<String> getTokens(String pattern, String text)
+	{
+		ArrayList<String> tokens = new ArrayList<String>();
+		Pattern tokSplitter = Pattern.compile(pattern);
+		Matcher m = tokSplitter.matcher(text);
+		
+		while (m.find()) {
+			tokens.add(m.group());
+		}
+		
+		return tokens;
+	}
 	
 	/**
-	 * This is a minimal set of tests.  Note that it can be difficult
-	 * to test methods/classes with randomized behavior.   
+	 * This is a minimal set of tests.
 	 * @param args
 	 */
 	public static void main(String[] args)
@@ -113,8 +162,7 @@ public class MarkovTextGeneratorLoL implements MarkovTextGenerator {
 
 }
 
-/** Links a word to the next words in the list 
- * You should use this class in your implementation. */
+/** Links a word to the next words in the list */
 class ListNode
 {
     // The word that is linking to the next words
@@ -126,7 +174,7 @@ class ListNode
 	ListNode(String word)
 	{
 		this.word = word;
-		nextWords = new LinkedList<String>();
+		nextWords = new MyLinkedList<String>();
 	}
 	
 	public String getWord()
