@@ -5,6 +5,7 @@ import java.util.LinkedList;
 /**
  * A class that implements the Dictionary interface using a LinkedList
  * @author Hamadi McIntosh
+ * @author UC San Diego Intermediate MOOC team
  *
  */
 public class DictionaryLL implements Dictionary 
