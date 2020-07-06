@@ -14,6 +14,11 @@ Train a Markov Text Generator using the text in the editor as the source text.
 New text of any desired length that resembles the source text can then be
 generated using the trained Markov Text Generator.
 
+## Spell Checking and Autocomplete
+
+Flag misspelled words as well as perform auto-complete suggestions for the
+user's text as they type.
+
 ## Acknowledgements
 
 [RichTextFX](https://github.com/TomasMikula/RichTextFX), which was created by
