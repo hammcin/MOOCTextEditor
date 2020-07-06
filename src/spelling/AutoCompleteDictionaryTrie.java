@@ -8,7 +8,8 @@ import java.util.LinkedList;
 
 /** 
  * An trie data structure that implements the Dictionary and the AutoComplete ADT
- * @author You
+ * @author Hamadi McIntosh
+ * @author UC San Diego Intermediate MOOC team
  *
  */
 public class AutoCompleteDictionaryTrie implements  Dictionary, AutoComplete {
@@ -24,12 +25,10 @@ public class AutoCompleteDictionaryTrie implements  Dictionary, AutoComplete {
 	
 	
 	/** Insert a word into the trie.
-	 * For the basic part of the assignment (part 2), you should convert the 
-	 * string to all lower case before you insert it. 
+	 * Convert the string to all lower case before it is inserted. 
 	 * 
 	 * This method adds a word by creating and linking the necessary trie nodes 
-	 * into the trie, as described outlined in the videos for this week. It 
-	 * should appropriately use existing nodes in the trie, only creating new 
+	 * into the trie. It appropriately uses existing nodes in the trie, only creating new 
 	 * nodes when necessary. E.g. If the word "no" is already in the trie, 
 	 * then adding the word "now" would add only one additional node 
 	 * (for the 'w').
@@ -39,8 +38,26 @@ public class AutoCompleteDictionaryTrie implements  Dictionary, AutoComplete {
 	 */
 	public boolean addWord(String word)
 	{
-	    //TODO: Implement this method.
-	    return false;
+		String wordLower = word.toLowerCase();
+		TrieNode currNode = root;
+		TrieNode nextNode;
+		Character currChar;
+		for (int i=0; i<wordLower.length();i++) {
+			currChar = wordLower.charAt(i);
+			nextNode = currNode.getChild(currChar);
+			if (nextNode==null) {
+				nextNode = currNode.insert(currChar);
+			}
+			currNode = nextNode;
+		}
+		if (currNode.endsWord()) {
+			return false;
+		}
+		else {
+			currNode.setEndsWord(true);
+			this.size++;
+		}
+	    return true;
 	}
 	
 	/** 
@@ -49,17 +66,29 @@ public class AutoCompleteDictionaryTrie implements  Dictionary, AutoComplete {
 	 */
 	public int size()
 	{
-	    //TODO: Implement this method
-	    return 0;
+		return this.size;
 	}
 	
 	
-	/** Returns whether the string is a word in the trie, using the algorithm
-	 * described in the videos for this week. */
+	/** Returns whether the string is a word in the trie. */
 	@Override
 	public boolean isWord(String s) 
 	{
-	    // TODO: Implement this method
+		String sLower = s.toLowerCase();
+		TrieNode currNode = root;
+		TrieNode nextNode;
+		Character currChar;
+		for (int i=0;i<sLower.length();i++) {
+			currChar = sLower.charAt(i);
+			nextNode = currNode.getChild(currChar);
+			if (nextNode==null) {
+				return false;
+			}
+			currNode = nextNode;
+		}
+		if (currNode.endsWord()) {
+			return true;
+		}
 		return false;
 	}
 
@@ -86,22 +115,32 @@ public class AutoCompleteDictionaryTrie implements  Dictionary, AutoComplete {
      */@Override
      public List<String> predictCompletions(String prefix, int numCompletions) 
      {
-    	 // TODO: Implement this method
-    	 // This method should implement the following algorithm:
-    	 // 1. Find the stem in the trie.  If the stem does not appear in the trie, return an
-    	 //    empty list
-    	 // 2. Once the stem is found, perform a breadth first search to generate completions
-    	 //    using the following algorithm:
-    	 //    Create a queue (LinkedList) and add the node that completes the stem to the back
-    	 //       of the list.
-    	 //    Create a list of completions to return (initially empty)
-    	 //    While the queue is not empty and you don't have enough completions:
-    	 //       remove the first Node from the queue
-    	 //       If it is a word, add it to the completions list
-    	 //       Add all of its child nodes to the back of the queue
-    	 // Return the list of completions
-    	 
-         return null;
+    	 LinkedList<String> wordComplete = new LinkedList<String>();
+    	 String prefixLower = prefix.toLowerCase();
+    	 TrieNode stemNode = root;
+    	 TrieNode nextNode;
+    	 Character currChar;
+    	 for (int i=0;i<prefixLower.length();i++) {
+    		 currChar = prefixLower.charAt(i);
+    		 nextNode = stemNode.getChild(currChar);
+    		 if (nextNode==null) {
+    			 return wordComplete;
+    		 }
+    		 stemNode = nextNode;
+    	 }
+    	 LinkedList<TrieNode> q = new LinkedList<TrieNode>();
+    	 q.addLast(stemNode);
+    	 TrieNode currNode;
+    	 while ((q.size()>0) && (wordComplete.size()<numCompletions)) {
+    		 currNode = q.removeFirst();
+    		 if (currNode.endsWord()) {
+    			 wordComplete.add(currNode.getText());
+    			 }
+    		 for (Character c : currNode.getValidNextCharacters()) {
+				 q.addLast(currNode.getChild(c));
+    		 }
+    	 }
+         return wordComplete;
      }
 
  	// For debugging
