@@ -133,7 +133,7 @@ public class NearbyWords implements SpellingSuggest {
 			String curr = queue.remove(0);
 			List<String> neighbors = distanceOne(curr,false);
 			for (String n : neighbors) {
-				if ((retList.size()<numSuggestions) && (wordCount<THRESHOLD)) {
+				if ((retList.size()>=numSuggestions) && (wordCount>=THRESHOLD)) {
 					break;
 				}
 				if (!visited.contains(n)) {
