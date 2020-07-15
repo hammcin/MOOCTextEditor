@@ -19,6 +19,10 @@ generated using the trained Markov Text Generator.
 Flag misspelled words as well as perform auto-complete suggestions for the
 user's text as they type.
 
+## Spelling Suggestions
+
+Give suggestions for how to correct a misspelled word.
+
 ## Acknowledgements
 
 [RichTextFX](https://github.com/TomasMikula/RichTextFX), which was created by
