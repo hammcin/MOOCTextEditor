@@ -17,7 +17,7 @@ import java.util.List;
 public class NearbyWords implements SpellingSuggest {
 	// THRESHOLD to determine how many words to look through when looking
 	// for spelling suggestions (stops prohibitively long searching)
-	private static final int THRESHOLD = 1000; 
+	private static final int THRESHOLD = 1000000; 
 
 	Dictionary dict;
 
@@ -128,14 +128,31 @@ public class NearbyWords implements SpellingSuggest {
 		queue.add(word);
 		visited.add(word);
 					
-		// TODO: Implement the remainder of this method, see assignment for algorithm
+		int wordCount = 0;
+		while (!queue.isEmpty() && (retList.size()<numSuggestions) && (wordCount<THRESHOLD)) {
+			String curr = queue.remove(0);
+			List<String> neighbors = distanceOne(curr,false);
+			for (String n : neighbors) {
+				if ((retList.size()<numSuggestions) && (wordCount<THRESHOLD)) {
+					break;
+				}
+				if (!visited.contains(n)) {
+					visited.add(n);
+					queue.add(n);
+					if (dict.isWord(n)) {
+						retList.add(n);
+					}
+					wordCount++;
+				}
+			}
+		}
 		
 		return retList;
 
 	}	
 
    public static void main(String[] args) {
-	   /* basic testing code to get started
+	   // basic testing code to get started
 	   String word = "i";
 	   // Pass NearbyWords any Dictionary implementation you prefer
 	   Dictionary d = new DictionaryHashSet();
@@ -149,7 +166,6 @@ public class NearbyWords implements SpellingSuggest {
 	   List<String> suggest = w.suggestions(word, 10);
 	   System.out.println("Spelling Suggestions for \""+word+"\" are:");
 	   System.out.println(suggest);
-	   */
    }
 
 }
