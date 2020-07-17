@@ -23,6 +23,13 @@ user's text as they type.
 
 Give suggestions for how to correct a misspelled word.
 
+## Word Paths
+
+Play a game called Word Paths.  Word Paths is a game that is played by finding a
+path from one word to another with the restriction that only one change can be
+made at a time (letter permutation, letter insertion, letter deletion) and
+that whatever change is made has to result in a real word.
+
 ## Acknowledgements
 
 [RichTextFX](https://github.com/TomasMikula/RichTextFX), which was created by
