@@ -12,6 +12,7 @@ import java.util.List;
  * WPTree implements WordPath by dynamically creating a tree of words during a Breadth First
  * Search of Nearby words to create a path between two words. 
  * 
+ * @author Hamadi McIntosh
  * @author UC San Diego Intermediate MOOC team
  *
  */
@@ -23,16 +24,14 @@ public class WPTree implements WordPath {
 	private NearbyWords nw; 
 	
 	// This constructor is used by the Text Editor Application
-	// You'll need to create your own NearbyWords object here.
 	public WPTree () {
 		this.root = null;
-		// TODO initialize a NearbyWords object
-		// Dictionary d = new DictionaryHashSet();
-		// DictionaryLoader.loadDictionary(d, "data/dict.txt");
-		// this.nw = new NearbyWords(d);
+		// Initialize a NearbyWords object
+		Dictionary d = new DictionaryHashSet();
+		DictionaryLoader.loadDictionary(d, "data/dict.txt");
+		this.nw = new NearbyWords(d);
 	}
 	
-	//This constructor will be used by the grader code
 	public WPTree (NearbyWords nw) {
 		this.root = null;
 		this.nw = nw;
@@ -41,8 +40,31 @@ public class WPTree implements WordPath {
 	// see method description in WordPath interface
 	public List<String> findPath(String word1, String word2) 
 	{
-	    // TODO: Implement this method.
-	    return new LinkedList<String>();
+		LinkedList<WPTreeNode> q = new LinkedList<WPTreeNode>();
+		HashSet<String> visited = new HashSet<String>();
+		
+		this.root = new WPTreeNode(word1,null);
+		visited.add(word1);
+		q.addLast(root);
+		
+		List<String> foundPath = null;
+		while (!q.isEmpty() && (foundPath == null)) {
+			WPTreeNode curr = q.removeFirst();
+			List<String> neighbors = nw.distanceOne(curr.getWord(), true);
+			for (String n : neighbors) {
+				if (!visited.contains(n)) {
+					WPTreeNode neighborNode = curr.addChild(n);
+					visited.add(n);
+					q.addLast(neighborNode);
+					if (n.equals(word2)) {
+						foundPath = neighborNode.buildPathToRoot();
+						return foundPath;
+					}
+				}
+			}
+		}
+		
+	    return null;
 	}
 	
 	// Method to print a list of WPTreeNodes (useful for debugging)
